@@ -1,6 +1,6 @@
 import React from 'react';
 import ButtonMob from './header/ButtonMob';
-import Header_content from './header/Header_content';
+import HeaderContent from './header/HeaderContent';
 import Nav from './header/Nav';
 
 export default class Header extends React.Component{
@@ -9,7 +9,7 @@ export default class Header extends React.Component{
             <div className='header'>
                 <Nav/>
                 <ButtonMob/>
-                <Header_content/>
+                <HeaderContent/>
             </div>
         );
     }
