@@ -68,7 +68,6 @@ async function create(req, res, next) {
       return next(ErrorsUtils.createBadRequest('Email already exist'));
     }
     */
-    //console.debug('user response %j.', data);
 
     let user = new User({
       username: req.body.username,
