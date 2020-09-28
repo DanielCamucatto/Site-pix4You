@@ -3,7 +3,7 @@ import AnchorLink from 'react-anchor-link-smooth-scroll'
 export default class MainPack extends React.Component{
     render(){
         return(
-            <div className='packContent'>
+            <div className='packContent' id='buy'>
                 <h2 className='packTitle'>Vamos experimentar?</h2>
                 <div className='pack6'>
                 <h2 className='title6'>pack com 6</h2>
