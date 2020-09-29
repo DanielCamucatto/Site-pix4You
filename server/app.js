@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const path = require('path');
 
 const users = require('./api/users/userRoute');
+const orders = require('./api/orders/orderRoute');
+
 const app = express();
 const cors = require('cors');
 
@@ -35,6 +37,8 @@ app.use((req, res, next) => {
 });
 */
 app.use('/api/users', users);
+
+app.use('/api/orders', orders);
 
 //e2e means end to end test outside production
 if (process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'e2e') {

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const config = require('../../config/config');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
-let User = require('./../../api/users/user');
+let Order = require('../../api/orders/order');
 //const server = require('../../server');
 //const DB = require('mongoose').Db;
 const MongoMemoryServer = require('mongodb-memory-server').MongoMemoryServer;
@@ -18,12 +18,15 @@ const expect = chai.expect;
 
 const SERVER_APPLICATION_HOST = 'http://localhost:8089';
 const USER_ID = '5c48eada47227ff3460dce9b';
-const USER_URL = '/api/users/';
+const ORDER_URL = '/api/orders/';
 
-const VALID_USER_MOCK = {
-  'username': 'Jean Grey',
-  'email': 'jean@mail.com',
-  'phoneNumber': '1199556655'
+
+const generateValidOrderMock = () => {
+  return {
+    userEmail: 'jean@mail.com',
+    phoneNumber: '1199556655',
+    itemId: 1
+  }
 }
 
 before(async () => {
@@ -52,50 +55,76 @@ after(() => {
   mongoServer.stop();
 });
 
-describe.skip('Users ', () => {
+describe('Orders ', () => {
 
   before(() => {
     server = require('../../server');
   });
 
   beforeEach((done) => {
-    User.deleteMany({}, (err) => {
+    Order.deleteMany({}, (err) => {
       // console.log('error erasing user data');
     });
     done();
   });
 
-  it('it should not find user by id.', async () => {
-
-    var result = await chai.request(SERVER_APPLICATION_HOST).get(USER_URL + USER_ID);
-
-    expect(result.status).to.equal(404);
-
-  });
-
-  it('it should create an user.', async () => {
+  it('it should create an order.', async () => {
 
     try {
 
-      var result = await postCall(USER_URL, VALID_USER_MOCK);
+      var result = await postCall(ORDER_URL, generateValidOrderMock());
 
       expect(result.status).to.equal(201);
-      expect(result.body.user).to.have.property('email');
-      expect(result.body.user).to.have.property('_id');
+      expect(result.body.order).to.have.property('userEmail');
+      expect(result.body.order).to.have.property('_id');
+      expect(result.body.order.status).to.equal('CREATED');
+
+    } catch (err) {
+      console.log(err)
+      assert.fail(err.message);
+    }
+  });
+
+  it('invalid order with no email should return bad request error.', async () => {
+
+    try {
+
+      let tempOrder = generateValidOrderMock();
+      delete tempOrder.userEmail;
+
+      var result = await postCall(ORDER_URL, tempOrder);
+
+      expect(result.status).to.equal(400);
 
     } catch (err) {
       assert.fail(err.message);
     }
   });
 
-  it('invalid user should return bad request error.', async () => {
+  it('invalid order with invalid item id should return bad request error.', async () => {
 
     try {
 
-      let tempUser = VALID_USER_MOCK;
-      delete tempUser.email;
+      let tempOrder = generateValidOrderMock();
+      tempOrder.itemId = 0;
 
-      var result = await postCall(USER_URL, tempUser);
+      var result = await postCall(ORDER_URL, tempOrder);
+
+      expect(result.status).to.equal(400);
+
+    } catch (err) {
+      assert.fail(err.message);
+    }
+  });
+
+  it('not order with invalid item id should return bad request error.', async () => {
+
+    try {
+
+      let tempOrder = generateValidOrderMock();
+      delete tempOrder.itemId;
+
+      var result = await postCall(ORDER_URL, tempOrder);
 
       expect(result.status).to.equal(400);
 
