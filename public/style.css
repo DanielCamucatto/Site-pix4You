@@ -1,513 +1,360 @@
-body{
-    margin:0;
-    padding: 0;
-    margin-bottom: 15px;
-    margin-top:8px;
-    background: rgb(254, 254,254); 
+*{
+  margin: 0;
+  padding: 0;
 }
 a{
-    text-decoration: none;
+  color: black;
+  text-decoration: none;
 }
-
-  @font-face {
-    font-family: "molly-sans-c-personal-bold";
-    src: url("/public/fonts/molly-sans-c-personal-bold.ttf");
+h1{
+  text-transform: uppercase;
+  position: absolute;
+  color: white;
+}
+h3{
+  color: rgb(226, 88, 62);
+  font-size: 1.5rem;
+  margin: 1em auto;
+}
+.know{
+  position: absolute;
+  color: white;
+  background-color: rgb(226, 88, 62);
+  display: flex;
+  justify-content: center;
+}
+.mainContent{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
+}
+.titleContent{
+  text-transform: uppercase;
+  margin-top: 1em;
+}
+.one h2{
+  color: rgb(127, 205 , 205);
+}
+.one p{     
+  text-align: center;
+  margin: 3em;  
+  font-size: 0.9rem;
+}
+.two h2{
+  color: rgb(127, 205 , 205);
+}
+.two p{
+  text-align: center;  
+  font-size: 0.9rem;
+  margin: 3em;
+}
+.three h2{
+  color: rgb(127, 205 , 205);
+}
+.three p{     
+  text-align: center;  
+  font-size: 0.9rem;
+  margin: 3em;
+}
+.packContent{
+  display: flex;
+  flex-direction: column;
+ align-content: center;
+ text-align: center; 
+}
+.packTitle{
+  text-transform: uppercase;
+  font-size: 1.3em;
+}
+.pack6{
+  margin-top: 1em;
+  -webkit-box-shadow: -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
+  -moz-box-shadow:    -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
+  box-shadow:         -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
+}
+.pack6 h2{
+  color:rgb(226, 88, 62);
+  text-transform: uppercase;
+  text-align: center;
+  background-color: rgb(127, 205, 205);
+  padding: 1em;
+  width: 11.4em;
+  margin-block-start: initial;
+}
+.pack6 img{
+  width: 20em;
+}
+.pack6 li{
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9em;
+  text-align: center;
+  margin-top: 1em;
+}
+.pack6 p{
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 0.7rem;
   }
-h1,h2,h3,h4,h5,h6{
-  font-family: 'molly-sans-c-personal-bold';
+  .pack6 a{
+  background-color: rgb(226, 88, 62);
+  color:white;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.5rem;
+  display: block;
+  text-align: center;
+  padding: 10px;
 }
-p{
-  font-family: Helvetica;
+.pack12{
+  margin-top: 1em;
+  -webkit-box-shadow: -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
+  -moz-box-shadow:    -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
+  box-shadow:         -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
 }
-@media screen and (max-width: 480px){
-    .header{
-        display: flex;
-        flex-direction: column;
-    }
-    .nav{
-        height: auto;
-        width: auto;
-        padding: 10px 0;
-        display: none;
-        flex-direction: column;
-        order: 2;
-    }
-    .nav a{
-        width: 100%;
-        color:#4B4B4B;
-        text-align: center;
-        text-transform: uppercase;
-    }
-    .buttonMob{
-        order: 1;
-        text-align: right;
-        padding: 5px 5% 5px 0;
-    }
-
+.pack12 h2{
+  color:rgb(226, 88, 62);
+  text-transform: uppercase;
+  text-align: center;
+  background-color: rgb(127, 205, 205);
+  padding: 1em;
+  width: 11.4em;
+  margin-block-start: initial;
 }
- @media screen and (min-width: 481px) and (max-width: 1023px){
-    .header{
-        display:flex;
-        flex-direction: column;
-    }
-    .nav{
-        height: auto;
-        width: auto;
-        padding: 10px 0;
-        display: none;
-        flex-direction: column;
-        order: 2;
-    }
-    .nav a{
-        width: 100%;
-        color:#4B4B4B;
-        text-align: center;
-        text-transform: uppercase;
-    }
-    .buttonMob{
-        order: 1;
-        text-align: right;
-        padding: 5px 5% 5px 0;
-    }
- }
-@media screen and (min-width: 1024px){
-  .nav{ 
-      width: 100%;
-      height: 100%;
-      /* border: solid 1px red; */
-      margin-top: 50px;
-      font-size:0.7rem;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
+.pack12 img{
+  width: 20em;
+}
+.pack12 li{
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9em;
+  text-align: center;
+  margin-top: 1em;
+}
+.pack12 p{
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 0.7rem;
+  }
+  .pack12 a{
+  background-color: rgb(226, 88, 62);
+  color:white;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.5rem;
+  display: block;
+  text-align: center;
+  padding: 10px;
+}
+.pack18{
+  margin-top: 1em;
+  -webkit-box-shadow: -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
+  -moz-box-shadow:    -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
+  box-shadow:         -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
+}
+.pack18 h2{
+  color:rgb(226, 88, 62);
+  text-transform: uppercase;
+  text-align: center;
+  background-color: rgb(127, 205, 205);
+  padding: 1em;
+  width: 11.4em;
+  margin-block-start: initial;
+}
+.pack18 img{
+  width: 20em;
+}
+.pack18 li{
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9em;
+  text-align: center;
+  margin-top: 1em;
+}
+.pack18 p{
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 0.7rem;
+  }
+  .pack18 a{
+  background-color: rgb(226, 88, 62);
+  color:white;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.5rem;
+  display: block;
+  text-align: center;
+  padding: 10px;
+}
+  .faq{
+    width: 90%;
+    margin: 2em auto;
+    text-align: justify;
+  }
+  .faq h2{
+    text-align: justify;
+    margin: 1em auto;
+  }
+  .faq h4{
+    margin: 0.9em;
+    color: rgb(226, 88, 62);
+    text-transform: uppercase;
+  }
+  .faq p{
+    margin: 0.9em;
+    font-size: 0.9em;
+  }
+  .footer{
+  background-color: rgb(127, 205, 205);
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  }
+  .formContact{
+    order: 1;
+    margin-top: 2em;
+  }
+  .formContact legend{
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+  }
+  .formContact fieldset{
+    border: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  .formContact input{
+    margin: 0.3em;
+    height: 3vh;
+    width: 90vw;
+    border: solid 2px rgb(82, 82, 82);
+    background-color: rgb(127, 205, 205);
+  }
+  .formContact fieldset textarea{
+    margin: 0.3em;
+    height: 10vh;
+    width: 90vw;
+    border: solid 2px rgb(82, 82, 82);
+    background-color: rgb(127, 205, 205);
+  }
+  .formContact .botton{
+  color:white;
+  background-color: rgb(226, 88, 62);
+  border: solid 2px rgb(82, 82, 82);
+  text-align: center;
+  margin: 0.3em auto;
+  width: 90vw;
+  height: 3vh;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  }
+  .box1{
+    order: 2;
+    text-align: center;
+    margin: 0.9em auto;
+    font-size: 0.7em;
+  }
+  .box2{
+    order: 3;
+    margin:  1em auto;
+    text-align: center;
+    font-size: 0.7em;
+    width: 25em;
+  }
+  .icons{
+    order: 4;
+    margin: 1em auto;
+    text-align: center;
+    width: 20em;
+  }
+  .icons a{
+    margin-left: 1em;
+  }
+@media screen and (min-width:320px) and (max-width:480px){
+/* configurando menu */
+  .nav{
+    width: auto;
+  }
+  .nav .logo{
+    display: none;
+  }
+  .nav a{
+    height: 50em;
+    width: 100vw;
+    margin-top: 60em;
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.2em;
+  }
+  .nav a:hover{
+    color: rgb(127, 205 , 205)
+  }
+  .buttonMob{
+    order: 1;
+    position: relative;
+    right: 0em;
+    top: 0em;
+    padding: 2em 2em 2em 0;
+  }
+  h1{
+  font-size: 1.5em;
+  margin-top: 4vh;
+  margin-left: 2vh;
+  width: 30vh;
+  }
+  .know{
+    margin-top: 8em;
+    margin-left: 1.1em;
+  }
+}
+@media screen and ( min-width: 481px) and (max-width:768px){
+  /* configurando menu */
+  .nav{
+    width: 100vw;
+    height: 10vh;
+  }
+  .nav .logo{
+    display: none;
   }
   .nav a{
     width: 100vw;
-    padding: 10px 0;
-    margin-left: 10px;
-    text-transform: uppercase;
-    color: #4B4B4B;
-    cursor: pointer;
-   
-  }
-  .nav a:hover{
-      color: rgb(127,205,205);
-  }
-  .buttonMob{
-      display: none;
-  }
-  
-  h1{
-      width: 700px;
-      margin-left: 300px;
-      color:white;
-      font-size: 5rem;
-      text-transform: uppercase;
-      position: absolute;
-      
-  }
-  .know{
-      width: 200px;
-      margin-left: 300px;
-      margin-top: 350px;
-      position: absolute;
-      font-size: 1.2rem;
-      padding: 10px;
-      color: white;
-      background-color: rgb(226, 88, 62);
-      display: flex;
-      justify-content: center;
-      cursor: pointer;
-      
-  }
-  .know:hover{
-    background: rgba(226, 88, 62, 0.1);
-    border: solid 3px rgb(226, 88, 62);
-    transition: 0.6s; 
-  }
-  .img-bg{
-    background-position: center;
-    background-size: cover;
-    width: 100vw;
-    height: 100vh;
-}
-  .mainContent{
-    width: 100vw;
-    display: inline-grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    justify-content: space-evenly;
-    justify-items: center;
-    align-items: center;
-  }
-  .titleContent{
-    grid-row: 1;
-    grid-row-start: 1;
-    grid-column-start: 2;
-    justify-self: center;
-    height: 20vh;
-    text-transform: uppercase;
-  }
-  .one{
-    margin-left: 200px;
-    height: 30vh;
-    width: 20vw;
-    grid-row: 2;
-      
-  }
-  .one img{
-    margin-left: 8vh;
-  }
-  .one h2{
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: bold;
-    font-family: "Helvetica Neue";
-    color: rgb(127, 205, 205);
-  }
-  .one p{     
-    text-align: center;  
-    font-size: 0.9rem;
-  }
-  .two{
-    height: 30vh;
-    width: 20vw;
-    grid-row: 2;
-  }
-  .two img{
-    margin-left: 8vh;
-  }
-  .two h2{
-    text-transform: uppercase;
-    text-align: center;
-    color: rgb(127, 205, 205);
-  }
-  .two p{
-    text-align: center;
-    font-size: 0.9rem;
-  }
-  .three{
-    height: 30vh;
-    width: 20vw;
-    grid-row: 2;
-    margin-right: 200px;
-  }
-  .three img{ 
-    margin-left: 8vh;
-  }
-  .three h2{
-    text-transform: uppercase;
-    text-align: center;
-    color: rgb(127, 205, 205);
-  }
-  .three p{
-    text-align: center;
-    font-size: 0.9rem ;
-  }
-  /* pack content */
-
-  .packContent{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    justify-items: center;
-  }
-  .packTitle{
-    grid-column: 2;
-    margin: 100px auto;
-    text-transform: uppercase;
-    font-size: 1.5rem;
-  }
-  .pack6{
-    margin-left: 200px;
-    grid-column: 1;
-    -webkit-box-shadow: -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
-    -moz-box-shadow:    -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
-    box-shadow:         -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
-  }
-  .pack6 h2{
-    color:rgb(226, 88, 62);
-    text-transform: uppercase;
-    text-align: center;
-    background-color: rgb(127, 205, 205);
-    padding: 30px;
-    /* position: absolute; */
-    width: 250px;
-    /* height: 150px; */
-    margin-block-start: initial;
-  }
-  .pack6 img{
-    width: 310px;
-  }
-  .pack6 img:hover{
-    transition: 2s;
-    transform: scale(1.1);
-  }
-  .pack6 h3{
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    color: rgb(226, 88, 62);
-    font-size: 1.5rem;
-  }
-  .pack6 li{
-    text-transform: uppercase;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 5px;
-    padding: 5px;
-  }
-  .pack6 p{
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 0.7rem;
-  }
-  .pack6 a{
-    background-color: rgb(226, 88, 62);
-    color:white;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1.5rem;
-    display: block;
-    text-align: center;
-    padding: 10px;
-  }
-  .pack6 a:hover{
-    background-color: rgb(127, 205, 205);
-    transition: 0.5s;
-  }
-  .pack12{
-    grid-column: 2;
-    -webkit-box-shadow: -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
-    -moz-box-shadow:    -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
-    box-shadow:         -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
-  }
-  .pack12 h2{
-    color:rgb(226, 88, 62);
-    text-transform: uppercase;
-    text-align: center;
-    background-color: rgb(127, 205, 205);
-    padding: 30px;
-    width: 250px;
-    margin-block-start: initial;
-  }
-  .pack12 img{
-    width: 310px;
-  }
-  .pack12 img:hover{
-    transition: 2s;
-    transform: scale(1.1);
-  }
-  .pack12 h3{
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    color: rgb(226, 88, 62);
-    font-size: 1.5rem;
-  }
-  .pack12 li{
-    text-transform: uppercase;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 5px;
-    padding: 5px;
-  }
-  .pack12 p{
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 0.7rem;
-  }
-  .pack12 a{
-    background-color: rgb(226, 88, 62);
-    color:white;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1.5rem;
-    display: block;
-    text-align: center;
-    padding: 10px;
-  }
-  .pack12 a:hover{
-    background-color: rgb(127, 205, 205);
-    transition: 0.5s;
-  }
-  .pack18{
-    margin-right: 200px;
-    grid-column: 3;
-    -webkit-box-shadow: -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
-    -moz-box-shadow:    -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
-    box-shadow:         -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
-  }
-  .pack18 h2{
-    color:rgb(226, 88, 62);
-    text-transform: uppercase;
-    text-align: center;
-    background-color: rgb(127, 205, 205);
-    padding: 30px;
-    width: 250px;
-    margin-block-start: initial;
-  }
-  .pack18 img{
-    width: 310px;
-  }
-  .pack18 img:hover{
-    transition: 2s;
-    transform: scale(1.1);
-  }
-  .pack18 h3{
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    color: rgb(226, 88, 62);
-    font-size: 1.5rem;
-  }
-  .pack18 li{
-    text-transform: uppercase;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 5px;
-    padding: 5px;
-  }
-  .pack18 p{
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 0.7rem;
-  }
-  .pack18 a{
-    background-color: rgb(226, 88, 62);
-    color:white;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1.5rem;
-    display: block;
-    text-align: center;
-    padding: 10px;
-  }
-  .pack18 a:hover{
-    background-color: rgb(127, 205, 205);
-    transition: 0.5s;
-  }
-  .faq{
-   margin:100px 300px;
-  }
-  .faq h2{
-    text-align: center;
-    font-weight: bold;
-    font-size: 2rem;
-  }
-  .faq h4{
-    color: rgb(226, 88, 62);
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-  /* configurações footer */
-  .footer{
-    background-color: rgb(127, 205, 205);
-    height: 500px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 2fr 1fr;
-  }
-  .box1{
-    margin-left: 200px;
-    margin-top: 50px; 
-  }
-  .box1 p{
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-  .box1 a{
-    color: black;
-    font-weight: bold;
-    font-size: 1.2rem;
-    cursor: pointer;
-  }
-  .box1 a:hover{
-    text-decoration: underline;
-  }
-  .formContact{
-    margin-top: 60px;
-    margin-right: 100px;
-    height: 100px;
-  }
-  legend{
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-  fieldset{
-    border:none;
+    margin-top: 10px;
+    order: 2;
     display: flex;
     flex-direction: column;
-  }
-  .formContact fieldset label input{
-    margin: 6px 0;
-    height: 30px;
-    width: 450px;
-    border: solid 2px rgb(82, 82, 82);
-    background-color: rgb(127, 205, 205);
-  }
-  .formContact fieldset label input:hover{
-    background-color: white;
-  }
-  .formContact fieldset label textarea{
-    background-color: rgb(127, 205, 205);
-    border: solid 2px rgb(82, 82, 82);
-    margin-top: 6px;
-    width: 450px;
-    height: 100px;
-  }
-  .formContact fieldset label textarea:hover{
-    background-color: white;
-  }
-  .formContact .botton{
-    color: rgb(226, 88, 62);
-    background-color: rgb(127, 205, 205);
-    border: solid 2px rgb(82, 82, 82);
+    justify-content: center;
     text-align: center;
-    margin-top: 6px;
-    width: 200px;
-    height: 30px;
-    font-size: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
+    font-size: 1.2em;
   }
-  .formContact .botton:hover{
-    color: white;
-    background-color: rgb(226, 88, 62);
-    border: none;
+  .nav a:hover{
+    color: rgb(127, 205 , 205)
   }
-  .box2{
-    grid-column: 1/3;
-    /* margin-top: 150px;
-    margin-left: 200px; */
-    justify-self: center;
-    align-self: center;
+  .buttonMob{
+    order: 1;
+    text-align: right;
+    padding: 2em 2em 2em 0;
   }
-  .box2 p{
-    text-align: center;
-    font-size: 0.8rem;
+}
+@media screen and (min-width:769) and (max-width:1199){
+  .nav{
+    flex-direction: column;
+}
+  .nav a{
+    width: 100%;
+    flex-direction: column;
+    order: 2;
   }
-  .icons{
-    grid-column: 1/3;
-    font-size: 1.5rem;
-    text-align: center;
-    padding: 10px;
-  }
-  .icons a{
-    color: black;
-    margin-right: 8px;
-    margin-bottom: 5px;
-    cursor: pointer;
-  }
-  .icons a:hover{
-    color: rgb(226, 88, 62);
+  .buttonMob{
+    order: 1;
   }
 }

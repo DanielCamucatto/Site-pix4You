@@ -3,7 +3,7 @@ import React from 'react';
 export default class MainContent extends React.Component{
     render(){
         return(
-            <div className='mainContent'>
+            <div className='mainContent' id='know'>
                 <h2 className='titleContent'>Veja como é fácil</h2>
                 <div className='one'>
                     <picture>
@@ -17,7 +17,7 @@ export default class MainContent extends React.Component{
                         <img src='img/2.jpg' alt='dois' width='150'/>
                     </picture>
                     <h2>Envie suas fotos</h2>
-                    <p>Clique em comprar no pacj escolhido, escolha suas fotos, edite-as e nos Envie.</p>
+                    <p>Clique em comprar no pack escolhido, escolha suas fotos, edite-as e nos Envie.</p>
                 </div>
                 <div className='three'>
                     <picture>
