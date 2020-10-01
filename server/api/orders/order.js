@@ -18,6 +18,9 @@ const orderSchema = mongoose.Schema({
         type: String,
         required: [true, 'The status is required.'],
         default: 'CREATED'
+    },
+    images: {
+        type: Object
     }
 });
 

@@ -2,6 +2,11 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path');
 
+const multer = require('multer');
+const upload = multer({
+    dest: 'pix4funImages/'
+})
+
 const users = require('./api/users/userRoute');
 const orders = require('./api/orders/orderRoute');
 
@@ -29,7 +34,10 @@ if (env === 'dev') {
 }
 app.use(express.static("dist"));
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+    type: 'application/json'
+}));
+
 /*
 app.use((req, res, next) => {
     req.isAuth = true;
@@ -38,7 +46,7 @@ app.use((req, res, next) => {
 */
 app.use('/api/users', users);
 
-app.use('/api/orders', orders);
+app.use('/api/orders', upload.single('uploaded_file'), orders);
 
 //e2e means end to end test outside production
 if (process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'e2e') {

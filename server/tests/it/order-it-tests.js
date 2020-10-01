@@ -1,4 +1,5 @@
 process.env.NODE_ENV = 'test';
+const fs = require('fs')
 const assert = require("assert");
 const mongoose = require('mongoose');
 const config = require('../../config/config');
@@ -9,6 +10,9 @@ let Order = require('../../api/orders/order');
 //const DB = require('mongoose').Db;
 const MongoMemoryServer = require('mongodb-memory-server').MongoMemoryServer;
 
+const FILE_TEST = '\\resources\\favicon.ico';
+const IMAGES_TMP_FOLDER = process.env.IMAGE_STORAGE_PATH || 'pix4funImages';
+
 chai.use(chaiHttp);
 let mongoServer;
 let con;
@@ -17,9 +21,9 @@ let db;
 const expect = chai.expect;
 
 const SERVER_APPLICATION_HOST = 'http://localhost:8089';
-const USER_ID = '5c48eada47227ff3460dce9b';
 const ORDER_URL = '/api/orders/';
 
+const FORM_CONTENT_TYPE = 'multipart/form-data';
 
 const generateValidOrderMock = () => {
   return {
@@ -53,6 +57,10 @@ before(async () => {
 after(() => {
   mongoose.disconnect();
   mongoServer.stop();
+
+  fs.readdirSync(IMAGES_TMP_FOLDER).forEach(function (filename) {
+    fs.unlinkSync(IMAGES_TMP_FOLDER + '/' + filename);
+  });
 });
 
 describe('Orders ', () => {
@@ -72,12 +80,20 @@ describe('Orders ', () => {
 
     try {
 
-      var result = await postCall(ORDER_URL, generateValidOrderMock());
+      let tempOrder = generateValidOrderMock();
+
+      var result = await chai.request(SERVER_APPLICATION_HOST).post(ORDER_URL)
+        .set('Content-Type', FORM_CONTENT_TYPE)
+        .field('userEmail', tempOrder.userEmail)
+        .field('phoneNumber', tempOrder.phoneNumber)
+        .field('itemId', tempOrder.itemId)
+        .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
 
       expect(result.status).to.equal(201);
       expect(result.body.order).to.have.property('userEmail');
       expect(result.body.order).to.have.property('_id');
       expect(result.body.order.status).to.equal('CREATED');
+      expect(fs.existsSync(IMAGES_TMP_FOLDER + '/' + result.body.order.images[0])).to.equal(true);
 
     } catch (err) {
       console.log(err)
@@ -90,9 +106,12 @@ describe('Orders ', () => {
     try {
 
       let tempOrder = generateValidOrderMock();
-      delete tempOrder.userEmail;
 
-      var result = await postCall(ORDER_URL, tempOrder);
+      var result = await chai.request(SERVER_APPLICATION_HOST).post(ORDER_URL)
+        .set('Content-Type', FORM_CONTENT_TYPE)
+        .field('phoneNumber', tempOrder.phoneNumber)
+        .field('itemId', tempOrder.itemId)
+        .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
 
       expect(result.status).to.equal(400);
 
@@ -108,7 +127,12 @@ describe('Orders ', () => {
       let tempOrder = generateValidOrderMock();
       tempOrder.itemId = 0;
 
-      var result = await postCall(ORDER_URL, tempOrder);
+      var result = await chai.request(SERVER_APPLICATION_HOST).post(ORDER_URL)
+        .set('Content-Type', FORM_CONTENT_TYPE)
+        .field('phoneNumber', tempOrder.phoneNumber)
+        .field('userEmail', tempOrder.userEmail)
+        .field('itemId', tempOrder.itemId)
+        .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
 
       expect(result.status).to.equal(400);
 
@@ -122,9 +146,12 @@ describe('Orders ', () => {
     try {
 
       let tempOrder = generateValidOrderMock();
-      delete tempOrder.itemId;
 
-      var result = await postCall(ORDER_URL, tempOrder);
+      var result = await chai.request(SERVER_APPLICATION_HOST).post(ORDER_URL)
+        .set('Content-Type', FORM_CONTENT_TYPE)
+        .field('phoneNumber', tempOrder.phoneNumber)
+        .field('userEmail', tempOrder.userEmail)
+        .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
 
       expect(result.status).to.equal(400);
 
@@ -134,12 +161,3 @@ describe('Orders ', () => {
   });
 
 });
-
-async function postCall(url, body) {
-  return chai.request(SERVER_APPLICATION_HOST).post(url).send(body);
-}
-
-
-//vitimas ?
-
-//vindima?

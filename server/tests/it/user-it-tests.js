@@ -52,7 +52,7 @@ after(() => {
   mongoServer.stop();
 });
 
-describe.skip('Users ', () => {
+describe('Users ', () => {
 
   before(() => {
     server = require('../../server');
