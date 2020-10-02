@@ -11,6 +11,7 @@ let Order = require('../../api/orders/order');
 const MongoMemoryServer = require('mongodb-memory-server').MongoMemoryServer;
 
 const FILE_TEST = '\\resources\\favicon.ico';
+const FILE_TMP_TEST = '\\resources\\temp.txt';
 const IMAGES_TMP_FOLDER = process.env.IMAGE_STORAGE_PATH || 'pix4funImages';
 
 chai.use(chaiHttp);
@@ -88,15 +89,60 @@ describe('Orders ', () => {
         .field('phoneNumber', tempOrder.phoneNumber)
         .field('itemId', tempOrder.itemId)
         .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
+        .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
 
       expect(result.status).to.equal(201);
       expect(result.body.order).to.have.property('userEmail');
       expect(result.body.order).to.have.property('_id');
       expect(result.body.order.status).to.equal('CREATED');
-      expect(fs.existsSync(IMAGES_TMP_FOLDER + '/' + result.body.order.images[0])).to.equal(true);
+      expect(result.body.order.images.length).to.equal(2);
+      expect(fs.existsSync(result.body.order.images[0].storagePath)).to.equal(true);
+      expect(fs.existsSync(result.body.order.images[1].storagePath)).to.equal(true);
 
     } catch (err) {
       console.log(err)
+      assert.fail(err.message);
+    }
+  });
+
+  it('invalid image format given return bad request error.', async () => {
+
+    try {
+
+      let tempOrder = generateValidOrderMock();
+
+      var result = await chai.request(SERVER_APPLICATION_HOST).post(ORDER_URL)
+        .set('Content-Type', FORM_CONTENT_TYPE)
+        .field('userEmail', tempOrder.userEmail)
+        .field('phoneNumber', tempOrder.phoneNumber)
+        .field('itemId', tempOrder.itemId)
+        .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TMP_TEST), 'temp.txt')
+        .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
+
+      expect(result.status).to.equal(400);
+      expect(result.body.error.message.indexOf('image')).to.gte(0);
+
+    } catch (err) {
+      assert.fail(err.message);
+    }
+  });
+
+  it('invalid order with no image return bad request error.', async () => {
+
+    try {
+
+      let tempOrder = generateValidOrderMock();
+
+      var result = await chai.request(SERVER_APPLICATION_HOST).post(ORDER_URL)
+        .set('Content-Type', FORM_CONTENT_TYPE)
+        .field('userEmail', tempOrder.userEmail)
+        .field('phoneNumber', tempOrder.phoneNumber)
+        .field('itemId', tempOrder.itemId)
+
+      expect(result.status).to.equal(400);
+      expect(result.body.error.message.indexOf('image')).to.gte(0);
+
+    } catch (err) {
       assert.fail(err.message);
     }
   });
@@ -114,6 +160,7 @@ describe('Orders ', () => {
         .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
 
       expect(result.status).to.equal(400);
+      expect(result.body.error.message.indexOf('email')).to.gte(0);
 
     } catch (err) {
       assert.fail(err.message);
@@ -135,6 +182,7 @@ describe('Orders ', () => {
         .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
 
       expect(result.status).to.equal(400);
+      expect(result.body.error.message.indexOf('order')).to.gte(0);
 
     } catch (err) {
       assert.fail(err.message);
@@ -154,6 +202,7 @@ describe('Orders ', () => {
         .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
 
       expect(result.status).to.equal(400);
+      expect(result.body.error.message.indexOf('item')).to.gte(0);
 
     } catch (err) {
       assert.fail(err.message);

@@ -46,7 +46,8 @@ app.use((req, res, next) => {
 */
 app.use('/api/users', users);
 
-app.use('/api/orders', upload.single('uploaded_file'), orders);
+//app.use('/api/orders', upload.single('uploaded_file'), orders);
+app.use('/api/orders', upload.array('uploaded_file', 12), orders);
 
 //e2e means end to end test outside production
 if (process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'e2e') {

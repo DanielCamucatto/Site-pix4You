@@ -20,7 +20,8 @@ const orderSchema = mongoose.Schema({
         default: 'CREATED'
     },
     images: {
-        type: Object
+        type: Object,
+        required: [true, 'The images are required.'],
     }
 });
 
