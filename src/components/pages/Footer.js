@@ -3,8 +3,7 @@ import {FaFacebook} from 'react-icons/fa';
 import{FaInstagram} from 'react-icons/fa';
 import {FaPinterest} from 'react-icons/fa';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-// import Icons from 'react-icons/';
-import FormContact from './footer/FormContact';
+import FormContact from '../footer/FormContact';
 export default class Footer extends React.Component{
     render(){
         return(

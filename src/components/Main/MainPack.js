@@ -1,8 +1,9 @@
 import React from 'react';
-import AnchorLink from 'react-anchor-link-smooth-scroll'
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 export default class MainPack extends React.Component{
     render(){
         return(
+            
             <div className='packContent' id='buy'>
                 <h2 className='packTitle'>Vamos experimentar?</h2>
                 <div className='pack6'>
@@ -29,7 +30,7 @@ export default class MainPack extends React.Component{
                     <li>Papel Fotografico Kodak</li>
                     <li>Frete fixo R$10,00</li>
                     <h3>R$ 21.99</h3>
-                    <AnchorLink href='#buy'>Comprar</AnchorLink>
+                    <AnchorLink href='#Loja'>Comprar</AnchorLink>
                 </div>
                 <div className='pack18'>
                     <h2>pack com 18</h2>
@@ -44,7 +45,6 @@ export default class MainPack extends React.Component{
                     <h3>R$ 26.99</h3>
                     <AnchorLink href='#buy'>Comprar</AnchorLink>
                 </div>
-                
             </div>
         );
     }

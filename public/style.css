@@ -891,6 +891,14 @@ h3{
   background-color: rgb(127, 205, 205);
   transition: 0.5s;
   }
+  .instagram{
+    border: solid 1px red;
+    height: 150vh;
+  }
+  .instagram h2{
+    text-align: center;
+    margin-top: 2em;
+  }
   .faq{
   width: auto;
   }
