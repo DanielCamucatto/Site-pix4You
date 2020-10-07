@@ -1,7 +1,10 @@
 const Order = require('./order');
 const fs = require('fs');
+const paymentService = require('./../payment/paymentService');
 const ErrorsUtils = require('../util/errorsUtils');
 const IMAGES_TMP_FOLDER = process.env.IMAGE_STORAGE_PATH || 'pix4funImages';
+
+paymentService.initialize();
 
 const predefinedItems = [{
         title: 'Firs plan',
@@ -65,6 +68,33 @@ const hasInvalidFiles = (req) => {
     //console.log('filterResponse ' + filterResponse);
     return filterResponse.length != req.files.length;
 }
+/*
+let preference = {
+    items: [
+      {
+        title: 'My Item',
+        unit_price: 100,
+        quantity: 1,
+      }
+    ]
+  };
+  */
+const findItem = (order) => {
+    return predefinedItems.filter(p => p.id == order.itemId)[0];
+}
+
+const getGlobalOrderId = async (order) => {
+    let preference = {
+        items: [findItem(order)]
+    }
+    return paymentService.generateGlobalId(preference);
+}
+
+const deleteImages = (order) => {
+    if (order != undefined && order.images != undefined && order.images.length > 0) {
+        order.images.forEach((i) => removeImage(i.id));
+    }
+}
 
 async function create(req, res, next) {
 
@@ -86,9 +116,7 @@ async function create(req, res, next) {
     const error = order.validateSync();
 
     if (error) {
-        if (req.file != undefined) {
-            removeImage(req.file.filename);
-        }
+        deleteImages(order)
         console.log('Invalid order given ' + order + ' .');
         console.log(error.message);
         return next(ErrorsUtils.createBadRequest(error.message));
@@ -103,9 +131,29 @@ async function create(req, res, next) {
     console.debug('orderSaved  %j.', orderSaved);
 
     if (orderSaved) {
+        let globalId = '';
+        try {
+            globalId = await getGlobalOrderId(order);
+        } catch (err) {
+            console.error('Error getting global id ' + err);
+            order.status = 'ERROR_GLOBAL_ID';
+            order.save();
+            return next(ErrorsUtils.createGenericError(err.message));
+        }
+
+        order.globalId = globalId;
+        order.status = 'CREATED_EXTERNALLY'
+
+        console.log('updating order ' + order._id);
+        order.save();
+
         return res.status(201).json({
-            'order': order
+            'order': {
+                globalId: order.globalId,
+                orderId: order._id
+            }
         });
+
     } else {
         return next(ErrorsUtils.createGenericError(error.message));
     }

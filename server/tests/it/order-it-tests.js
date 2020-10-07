@@ -3,11 +3,13 @@ const fs = require('fs')
 const assert = require("assert");
 const mongoose = require('mongoose');
 const config = require('../../config/config');
+const paymentService = require('./../../api/payment/paymentService');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let Order = require('../../api/orders/order');
 //const server = require('../../server');
 //const DB = require('mongoose').Db;
+const sinon = require("sinon");
 const MongoMemoryServer = require('mongodb-memory-server').MongoMemoryServer;
 
 const FILE_TEST = '\\resources\\favicon.ico';
@@ -66,7 +68,10 @@ after(() => {
 
 describe('Orders ', () => {
 
+  let paymentServiceStub, server;
+
   before(() => {
+    paymentServiceStub = sinon.stub(paymentService, 'initialize');
     server = require('../../server');
   });
 
@@ -77,9 +82,15 @@ describe('Orders ', () => {
     done();
   });
 
+  afterEach(() => {
+    generateGlobalId.restore();
+  });
+
   it('it should create an order.', async () => {
 
     try {
+
+      generateGlobalId = sinon.stub(paymentService, 'generateGlobalId').returns('globalid-132');
 
       let tempOrder = generateValidOrderMock();
 
@@ -92,12 +103,52 @@ describe('Orders ', () => {
         .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
 
       expect(result.status).to.equal(201);
-      expect(result.body.order).to.have.property('userEmail');
-      expect(result.body.order).to.have.property('_id');
-      expect(result.body.order.status).to.equal('CREATED');
-      expect(result.body.order.images.length).to.equal(2);
-      expect(fs.existsSync(result.body.order.images[0].storagePath)).to.equal(true);
-      expect(fs.existsSync(result.body.order.images[1].storagePath)).to.equal(true);
+      expect(result.body.order).to.have.property('globalId');
+      expect(result.body.order).to.have.property('orderId');
+
+      let orderQuery = await Order.find({
+        status: 'CREATED_EXTERNALLY'
+      });
+
+      expect(orderQuery.length).to.equal(1);
+
+    } catch (err) {
+      console.log(err)
+      assert.fail(err.message);
+    }
+  });
+
+  it('it error getting global id.', async () => {
+
+    try {
+
+      let errorMessage = 'test exception';
+      generateGlobalId = sinon.stub(paymentService, 'generateGlobalId').throws(new Error(errorMessage));
+
+      let tempOrder = generateValidOrderMock();
+
+      var result = await chai.request(SERVER_APPLICATION_HOST).post(ORDER_URL)
+        .set('Content-Type', FORM_CONTENT_TYPE)
+        .field('userEmail', tempOrder.userEmail)
+        .field('phoneNumber', tempOrder.phoneNumber)
+        .field('itemId', tempOrder.itemId)
+        .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
+        .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
+
+      expect(result.status).to.equal(500);
+      expect(result.body.error.message).to.equal(errorMessage)
+
+      let queryOrder = await Order.find({
+        status: 'ERROR_GLOBAL_ID'
+      });
+
+      expect(queryOrder.length).to.equal(1);
+
+      let secondOrderQuery = await Order.find({
+        status: 'CREATED_EXTERNALLY'
+      });
+
+      expect(secondOrderQuery.length).to.equal(0);
 
     } catch (err) {
       console.log(err)

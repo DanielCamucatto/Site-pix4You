@@ -109,8 +109,3 @@ describe('Users ', () => {
 async function postCall(url, body) {
   return chai.request(SERVER_APPLICATION_HOST).post(url).send(body);
 }
-
-
-//vitimas ?
-
-//vindima?

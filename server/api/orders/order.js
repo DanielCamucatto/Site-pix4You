@@ -22,6 +22,9 @@ const orderSchema = mongoose.Schema({
     images: {
         type: Object,
         required: [true, 'The images are required.'],
+    },
+    globalId: {
+        type: String
     }
 });
 
