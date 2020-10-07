@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 export default class MainPack extends React.Component{
     render(){
@@ -17,7 +18,7 @@ export default class MainPack extends React.Component{
                     <li>Papel Fotografico Kodak</li>
                     <li>Frete fixo R$10,00</li>
                     <h3>R$ 17.99</h3>
-                    <AnchorLink href='#buy'>Comprar</AnchorLink>
+                    <Link to='/loja'>Comprar</Link>
                 </div>
                 <div className='pack12'>
                     <h2>pack com 12</h2>
@@ -30,7 +31,7 @@ export default class MainPack extends React.Component{
                     <li>Papel Fotografico Kodak</li>
                     <li>Frete fixo R$10,00</li>
                     <h3>R$ 21.99</h3>
-                    <AnchorLink href='#Loja'>Comprar</AnchorLink>
+                    <Link to='/loja'>Comprar</Link>
                 </div>
                 <div className='pack18'>
                     <h2>pack com 18</h2>
@@ -43,7 +44,7 @@ export default class MainPack extends React.Component{
                     <li>Papel Fotografico Kodak</li>
                     <li>Frete fixo R$10,00</li>
                     <h3>R$ 26.99</h3>
-                    <AnchorLink href='#buy'>Comprar</AnchorLink>
+                    <Link to='/loja'>Comprar</Link>
                 </div>
             </div>
         );
