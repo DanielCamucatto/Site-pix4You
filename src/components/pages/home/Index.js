@@ -1,4 +1,5 @@
 import React from 'react';
+import '../home/index.css'
 import Header from '../Header';
 import Main from '../Main';
 import Footer from '../Footer';

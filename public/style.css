@@ -1,4 +1,4 @@
-*{
+/* *{
   margin: 0;
   padding: 0;
 }
@@ -93,7 +93,7 @@ h3{
   /* -webkit-box-shadow: -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
   -moz-box-shadow:    -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
   box-shadow:         -1px 0px 10px 0px rgba(50, 50, 50, 0.8); */
-}
+/* }
 .pack6 h2{
   color:rgb(226, 88, 62);
   text-align: center;
@@ -133,7 +133,7 @@ h3{
   /* -webkit-box-shadow: -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
   -moz-box-shadow:    -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
   box-shadow:         -1px 0px 10px 0px rgba(50, 50, 50, 0.8); */
-}
+/* }
 .pack12 h2{
   color:rgb(226, 88, 62);
   text-transform: uppercase;
@@ -169,11 +169,11 @@ h3{
   padding: 1em auto;
 }
 .pack18{
-  margin: 1em 0 0 0;
+  margin: 1em 0 0 0; */
   /* -webkit-box-shadow: -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
   -moz-box-shadow:    -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
   box-shadow:         -1px 0px 10px 0px rgba(50, 50, 50, 0.8); */
-}
+/* }
 .pack18 h2{
   color:rgb(226, 88, 62);
   text-align: center;
@@ -291,14 +291,14 @@ h3{
     margin: 1em auto;
     text-align: center;
     /* width: 15em; */
-  }
+  /* }
   .icons a{
     margin-left: 1em;
 
-  }
-@media screen and (min-width:320px) and (max-width:480px){
+  } */
+/* @media screen and (min-width:320px) and (max-width:480px){
 /* configurando menu */
-  .nav{
+  /* .nav{
     width: 20em;
     height: 10em;
     display: none;
@@ -352,13 +352,13 @@ h3{
     font-size: 1em;
   }
   .packTitle{
-    font-size: 1em;
-}
+    font-size: 1em; */
+/* } */
 
-}
-@media screen and ( min-width: 481px) and (max-width:768px){
-  /* configurando menu */
-  .nav{
+ */
+/* @media screen and ( min-width: 481px) and (max-width:768px){
+  configurando menu */
+  /* .nav{
     width: 20em;
     height: 10em;
     display: none;
@@ -450,11 +450,11 @@ h3{
   }
   .pack18 img{
     width: 18em;
-  }
-}
-@media screen and (min-width:769px) and (max-width:1023px){
+  } */
+/* } */
+/* @media screen and (min-width:769px) and (max-width:1023px){ */
 /* configuração nav */
-.nav{
+/* .nav{
     width: 100%;
     height: 100%;
     display: flex;
@@ -566,14 +566,14 @@ h3{
       font-size: 2em;
     }
     
-}
-@media screen and (min-width:1024px){
-  a{
+} */
+/* @media screen and (min-width:1024px){ */
+  /* a{
     text-decoration: none;
     text-transform: uppercase;
   }
   /* configuração nav */
-  .nav{ 
+  /* .nav{ 
     width: 100%;
     height: 100%;
     margin-top: 50px;
@@ -706,7 +706,7 @@ h3{
   }
   /* pack content */
   
-  .packContent{
+  /* .packContent{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
@@ -750,8 +750,8 @@ h3{
   text-align: center;
   color: rgb(226, 88, 62);
   font-size: 1.5rem;
-  }
-  .pack6 li{
+  } */
+  /* .pack6 li{
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
@@ -840,8 +840,8 @@ h3{
   -webkit-box-shadow: -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
   -moz-box-shadow:    -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
   box-shadow:         -1px 0px 10px 0px rgba(50, 50, 50, 0.8);
-  }
-  .pack18 h2{
+  } */
+  /* .pack18 h2{
   color:rgb(226, 88, 62);
   text-transform: uppercase;
   text-align: center;
@@ -914,9 +914,9 @@ h3{
   }
   .faq p{
     text-align: justify;
-  }
+  } */ 
   /* configurações footer */
-  .footer{
+  /* .footer{
   background-color: rgb(127, 205, 205);
   height: 50em;
   display: grid;
@@ -1013,8 +1013,8 @@ h3{
   font-size: 1.5rem;
   text-align: center;
   padding: 10px;
-  }
-  .icons a{
+  } */
+  /* .icons a{
   color: black;
   margin-right: 8px;
   margin-bottom: 5px;
@@ -1022,5 +1022,4 @@ h3{
   }
   .icons a:hover{
   color: rgb(226, 88, 62);
-  }  
-}
+  }   */

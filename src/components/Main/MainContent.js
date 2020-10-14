@@ -5,6 +5,7 @@ export default class MainContent extends React.Component{
         return(
             <div className='mainContent' id='know'>
                 <h2 className='titleContent'>Veja como é fácil</h2>
+                <div className='mainContainer'>
                 <div className='one'>
                     <picture>
                         <img src='/img/1.jpg' alt="um" width='150'/>
@@ -25,6 +26,7 @@ export default class MainContent extends React.Component{
                     </picture>
                     <h2>Pronto</h2>
                     <p>Finalize com o pagamento, endereço de envioe pronto, agora é só aguardar suas fotos chegarem na sua casa.</p>
+                    </div>
                 </div>
             </div>
         );
