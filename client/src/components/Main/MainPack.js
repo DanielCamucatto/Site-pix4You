@@ -17,7 +17,7 @@ export default class MainPack extends React.Component{
                     <li>Papel Fotografico Kodak</li>
                     <li>Frete fixo R$10,00</li>
                     <h3>R$ 17.99</h3>
-                    <Link to='/loja'>Comprar</Link>
+                    <Link to='/loja?itemId=1'>Comprar</Link>
                 </div>
                 <div className='pack12'>
                     <h2>pack com 12</h2>
@@ -30,7 +30,7 @@ export default class MainPack extends React.Component{
                     <li>Papel Fotografico Kodak</li>
                     <li>Frete fixo R$10,00</li>
                     <h3>R$ 21.99</h3>
-                    <Link to='/loja'>Comprar</Link>
+                    <Link to='/loja?itemId=2'>Comprar</Link>
                 </div>
                 <div className='pack18'>
                     <h2>pack com 18</h2>
@@ -43,7 +43,7 @@ export default class MainPack extends React.Component{
                     <li>Papel Fotografico Kodak</li>
                     <li>Frete fixo R$10,00</li>
                     <h3>R$ 26.99</h3>
-                    <Link to='/loja'>Comprar</Link>
+                    <Link to='/loja?itemId=3'>Comprar</Link>
                 </div>
             </div>
         );

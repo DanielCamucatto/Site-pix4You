@@ -32,7 +32,8 @@ const generateValidOrderMock = () => {
   return {
     userEmail: 'jean@mail.com',
     phoneNumber: '1199556655',
-    itemId: 1
+    itemId: 1,
+    userName: 'Logan'
   }
 }
 
@@ -98,6 +99,7 @@ describe('Orders ', () => {
         .set('Content-Type', FORM_CONTENT_TYPE)
         .field('userEmail', tempOrder.userEmail)
         .field('phoneNumber', tempOrder.phoneNumber)
+        .field('userName', tempOrder.userName)
         .field('itemId', tempOrder.itemId)
         .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
         .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
@@ -131,6 +133,7 @@ describe('Orders ', () => {
         .set('Content-Type', FORM_CONTENT_TYPE)
         .field('userEmail', tempOrder.userEmail)
         .field('phoneNumber', tempOrder.phoneNumber)
+        .field('userName', tempOrder.userName)
         .field('itemId', tempOrder.itemId)
         .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')
         .attach('uploaded_file', fs.readFileSync(__dirname + FILE_TEST), 'favicon.ico')

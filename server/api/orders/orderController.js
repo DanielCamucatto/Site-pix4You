@@ -33,7 +33,7 @@ const generateItem = (req) => {
     if (undefined == itemId || filteredItem.length == 0) {
         return undefined;
     } else {
-        return filteredItem;
+        return filteredItem[0];
     }
 }
 
@@ -47,6 +47,7 @@ const generateImages = (req) => {
 }
 
 const buildImage = (file) => {
+
     if (fs.existsSync(IMAGES_TMP_FOLDER + '/' + file.filename)) {
         let updatedName = file.filename + file.originalname.substring(file.originalname.lastIndexOf('.'));
         fs.renameSync(IMAGES_TMP_FOLDER + '/' + file.filename, IMAGES_TMP_FOLDER + '/' + updatedName);
@@ -73,14 +74,7 @@ const hasInvalidFiles = (req) => {
 }
 
 const findItem = (order) => {
-    return predefinedItems.filter(p => p.id == order.itemId)[0];
-}
-
-const getGlobalOrderId = async (order) => {
-    let preference = {
-        items: [findItem(order)]
-    }
-    return paymentService.generateGlobalId(preference);
+    return predefinedItems.filter(p => p.id == order.item.id)[0];
 }
 
 const deleteImages = (order) => {
@@ -102,6 +96,7 @@ async function create(req, res, next) {
     let order = new Order({
         userEmail: req.body.userEmail,
         item: generateItem(req),
+        userName: req.body.userName,
         phoneNumber: req.body.phoneNumber,
         images: generateImages(req)
     });
@@ -117,16 +112,25 @@ async function create(req, res, next) {
 
     let orderSaved = await Order.create(order);
 
-    console.debug('orderSaved  %j.', orderSaved);
+    //console.debug('orderSaved  %j.', orderSaved);
 
     if (orderSaved) {
 
         let globalId = '';
+
         try {
-            globalId = await getGlobalOrderId(order);
+            
+            let preference = {
+                items: [findItem(order)]
+            }
+
+            globalId = await paymentService.generateGlobalId(preference);
+            //console.log('global id found for the order ' + order._id + '. Global id: ' + globalId);
+
         } catch (err) {
             console.error('Error getting global id ' + err);
             order.status = 'ERROR_GLOBAL_ID';
+            deleteImages(order);
             order.save();
             return next(ErrorsUtils.createGenericError(err.message));
         }
@@ -134,7 +138,7 @@ async function create(req, res, next) {
         order.globalId = globalId;
         order.status = 'CREATED_EXTERNALLY'
 
-        console.log('updating order ' + order._id);
+        console.log('updating order %j', order);
         order.save();
 
         return res.status(201).json({

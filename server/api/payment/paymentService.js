@@ -8,15 +8,15 @@ const initialize = () => {
 }
 
 const generateGlobalId = async (preference) => {
-    mercadopago.preferences.create(preference)
-        .then(function (response) {
-            // This value replaces the String "<%= global.id %>" in your HTML
-            let globalId = response.body.id;
-            return globalId;
-        }).catch(function (error) {
-            console.log(error);
-            throw error;
-        });
+    try {
+        let response = await  mercadopago.preferences.create(preference);
+        let globalId = response.body.id;
+        //console.log('payment service Global id: ' + globalId)
+        return globalId;
+    } catch (err) {
+        console.log('Payment service error: '+ err);
+        throw err;
+    } 
 }
 
 module.exports = {
