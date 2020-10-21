@@ -1,10 +1,10 @@
 const Order = require('./order');
 const fs = require('fs');
-const paymentService = require('./../payment/paymentService');
+//const paymentService = require('./../payment/paymentService');
 const ErrorsUtils = require('../util/errorsUtils');
 const IMAGES_TMP_FOLDER = process.env.IMAGE_STORAGE_PATH || 'pix4funImages';
 
-paymentService.initialize();
+//paymentService.initialize();
 
 const predefinedItems = [{
         title: 'Firs plan',
@@ -124,7 +124,7 @@ async function create(req, res, next) {
                 items: [findItem(order)]
             }
 
-            globalId = await paymentService.generateGlobalId(preference);
+            //globalId = await paymentService.generateGlobalId(preference);
             //console.log('global id found for the order ' + order._id + '. Global id: ' + globalId);
 
         } catch (err) {
@@ -135,7 +135,7 @@ async function create(req, res, next) {
             return next(ErrorsUtils.createGenericError(err.message));
         }
 
-        order.globalId = globalId;
+        order.globalId = 'temoGlobalId';
         order.status = 'CREATED_EXTERNALLY'
 
         console.log('updating order %j', order);
