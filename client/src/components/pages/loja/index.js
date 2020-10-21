@@ -3,7 +3,7 @@ import '../loja/loja.css';
 
 const Loja = ({props, match}) => {
 
-
+    const scriptSrc =  "https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js";
         const cleanForm = () =>{
             setName('');
             setItemId('');
@@ -30,7 +30,10 @@ const Loja = ({props, match}) => {
             if (rawResponse.status == 201) {
                 let result = await rawResponse.json();
                 console.log('order %j', result.order);
-                setGlobalId(result.order.globalId)
+                let script = document.createElement("script");
+                script.src = scriptSrc;
+                script["data-preference-id"] = "123";
+                document.getElementById("pagId").append(result.order.globalId);
                 cleanForm();
             }
         } catch (error) {
@@ -60,11 +63,7 @@ const Loja = ({props, match}) => {
                     </div>
                 </fieldset>
                 {(globalId != '') &&
-                <form method="POST">
-                    <script
-                    src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js"
-                    data-preference-id={globalId}>
-                    </script>
+                <form method="POST" id='pagId'>
                 </form>
                 }
             </div>

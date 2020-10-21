@@ -93,6 +93,9 @@ async function create(req, res, next) {
         return next(ErrorsUtils.createBadRequest(errorMessage));
     }
 
+    // save images
+    generateImages(req)
+    /*
     let order = new Order({
         userEmail: req.body.userEmail,
         item: generateItem(req),
@@ -111,18 +114,20 @@ async function create(req, res, next) {
     }
 
     let orderSaved = await Order.create(order);
-
+    */
     //console.debug('orderSaved  %j.', orderSaved);
 
-    if (orderSaved) {
+    //if (orderSaved) {
+    if (true) {
 
         let globalId = '';
 
         try {
-            
+            /*
             let preference = {
                 items: [findItem(order)]
             }
+            */
 
             //globalId = await paymentService.generateGlobalId(preference);
             //console.log('global id found for the order ' + order._id + '. Global id: ' + globalId);
@@ -134,12 +139,12 @@ async function create(req, res, next) {
             order.save();
             return next(ErrorsUtils.createGenericError(err.message));
         }
-
+        order = {};
         order.globalId = 'temoGlobalId';
         order.status = 'CREATED_EXTERNALLY'
 
         console.log('updating order %j', order);
-        order.save();
+        //order.save();
 
         return res.status(201).json({
             'order': {
