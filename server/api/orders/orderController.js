@@ -3,22 +3,30 @@ const fs = require('fs');
 const paymentService = require('./../payment/paymentService');
 const ErrorsUtils = require('../util/errorsUtils');
 const IMAGES_TMP_FOLDER = process.env.IMAGE_STORAGE_PATH || 'pix4funImages';
+const URL_PAYMENT_RESPONSE_SUCCESS = process.env.URL_PAYMENT_RESPONSE_SUCCESS || 'http://localhost:3000/loja';
+const URL_PAYMENT_RESPONSE_FAILURE = process.env.URL_PAYMENT_RESPONSE_FAILURE || 'http://localhost:3000/loja';
+const URL_PAYMENT_RESPONSE_PENDING = process.env.URL_PAYMENT_RESPONSE_PENDING || 'http://localhost:3000/loja';
 
 paymentService.initialize();
 
 const predefinedItems = [{
-        title: 'Firs plan',
-        unit_price: 100,
+        title: 'PACK COM 6',
+        unit_price: 17.99,
         quantity: 1,
         id: 1
     },
     {
-        title: 'Second Plan',
-        unit_price: 100,
+        title: 'PACK COM 12',
+        unit_price: 21.99,
         quantity: 1,
         id: 2
-    }
-];
+    },
+    {
+        title: 'PACK COM 18',
+        unit_price: 26.99,
+        quantity: 1,
+        id: 3
+    }];
 
 const IMAGES_FORMAT_ALLOWED = ['jpg', 'jpeg', 'ico', 'gif', 'png'];
 
@@ -26,7 +34,7 @@ const generateItem = (req) => {
 
     let itemId = req.body.itemId || req.params.itemId;
 
-    //console.log('itemId ' + req.params.itemId);
+    //console.log('itemId ' + itemId);
 
     let filteredItem = predefinedItems.filter((i) => i.id == itemId);
 
@@ -83,6 +91,50 @@ const deleteImages = (order) => {
     }
 }
 
+async function update(req, res, next) {
+    try {
+
+    //console.log('updating order given ' + req.params.orderId)
+
+    let order = await Order.findById(req.params.orderId);
+
+    if (!order) {
+        console.log('order not found: ' + req.params.orderId);
+        return next(ErrorsUtils.createNotFound('order not found'));
+    }
+
+    if (req.body.externalOrder == undefined || req.body.externalOrder == null || req.body.externalOrder == '') {
+        return next(ErrorsUtils.createBadRequest('external order missing'));
+    }
+
+    //console.log('comparisong ' + (order.externalOrder == req.body.externalOrder));
+
+    if (order.externalOrder != null && JSON.stringify(order.externalOrder) == JSON.stringify(req.body.externalOrder)) {
+        console.log('-> The order %s has already an external order.', order._id);
+        return next(ErrorsUtils.createBadRequest('duplicated order request. Order number: ' + req.params.orderId));
+    }
+
+    order.externalOrder = req.body.externalOrder;
+    order.status = 'PLACED_EXTERNALLY';
+
+    //console.log('externalOrder given %j', req.body.externalOrder);
+
+    let updateOrder = await order.save();
+
+    if (updateOrder) {
+        return res.status(200).json({
+            'updateOrder': updateOrder
+        });
+    } else {
+        return next(errorsUtils.createGenericError(error.message));
+    }
+
+} catch (error) {
+    console.log('error ', error);
+    return next(errorsUtils.createGenericError(error.message));
+};
+}
+
 async function create(req, res, next) {
 
    // console.log('header ' + req.header('content-type'));
@@ -124,6 +176,15 @@ async function create(req, res, next) {
                 items: [findItem(order)]
             }
 
+            preference.back_urls =  {
+                "success": URL_PAYMENT_RESPONSE_SUCCESS,
+                "failure": URL_PAYMENT_RESPONSE_FAILURE,
+                "pending": URL_PAYMENT_RESPONSE_PENDING
+            };
+
+            preference.external_reference = order._id.toString();
+            preference.auto_return = 'approved';
+
             globalId = await paymentService.generateGlobalId(preference);
             //console.log('global id found for the order ' + order._id + '. Global id: ' + globalId);
 
@@ -138,8 +199,8 @@ async function create(req, res, next) {
         order.globalId = globalId;
         order.status = 'CREATED_EXTERNALLY'
 
-        console.log('updating order %j', order);
-        order.save();
+        console.log('updating order ' +  order._id);
+        order = await order.save();
 
         return res.status(201).json({
             'order': {
@@ -160,5 +221,5 @@ const removeImage = (imageName) => {
 }
 
 module.exports = {
-    create
+    create, update
 };

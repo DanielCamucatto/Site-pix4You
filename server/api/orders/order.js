@@ -29,7 +29,8 @@ const orderSchema = mongoose.Schema({
     },
     globalId: {
         type: String
-    }
+    },
+    externalOrder: { type: Object }
 });
 
 orderSchema.plugin(timestampPlugin);
