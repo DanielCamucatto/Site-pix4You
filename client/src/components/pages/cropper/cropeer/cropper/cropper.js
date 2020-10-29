@@ -17,18 +17,12 @@ const Cropper = () =>{
         }else if (e.target){
             files = e.target.files;
         }
-        const reder = new FileReader();
+        const reader = new FileReader();
         reload.onload = () =>{
             setImg(reader.result)
         }
-        reader.readerDataURL(files[0]);
+        reader.readerAsDataURL(files[0]);
     }
-    const getCropData = () => {
-        if(typeof cropper !== 'undefined'){
-            setCropData(cropper.getCropData().toDataURL());
-        }
-    }
-
 }
 
 export default Cropper;
