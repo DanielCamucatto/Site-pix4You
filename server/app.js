@@ -30,7 +30,7 @@ let env = process.env.NODE_ENV || 'dev';
             }
             */
         },
-        methods: 'DELETE, POST, GET, OPTIONS',
+        methods: 'DELETE, POST, GET, OPTIONS, PUT',
         allowedHeaders: "Content-Type, Authorization"
     }
     app.use(cors(corsOptions));

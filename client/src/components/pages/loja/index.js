@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import {FaFileUpload} from 'react-icons/fa';
 import '../loja/loja.css';
+const url = process.env.API_URL || 'http://localhost:8089/api/orders';
 
-const Loja = ({props, match}) => {
+const Loja = (props) => {
 
+        const scriptSrc =  "https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js";
 
         const cleanForm = () =>{
             setName('');
@@ -15,13 +17,11 @@ const Loja = ({props, match}) => {
 
       async function onFormSubmit(){
 
-        const url = process.env.API_URL || 'http://localhost:8089/api/orders';
         const formData = new FormData();
-    
         formData.append('userName', name);
         formData.append('userEmail', userEmail);
         formData.append('phoneNumber', phoneNumber);
-        formData.append('itemId', 1);
+        formData.append('itemId', itemId);
         formData.append('uploaded_file', uploaded_file);
 
         try {
@@ -30,8 +30,12 @@ const Loja = ({props, match}) => {
             
             if (rawResponse.status == 201) {
                 let result = await rawResponse.json();
-                console.log('order %j', result.order);
-                setGlobalId(result.order.globalId)
+                setGlobalId(result.order.globalId);
+                let script = document.createElement("script");
+                script.src = scriptSrc;
+                script.setAttribute("data-preference-id", result.order.globalId);
+                document.getElementById("pagId").append(script);
+
                 cleanForm();
             }
         } catch (error) {
@@ -39,12 +43,28 @@ const Loja = ({props, match}) => {
         }
       }
     
+      let queryParams = new URLSearchParams(props.location.search.substring(1));
+
+      let paymentParams = Object.fromEntries(queryParams);
+
+      //console.log('paymentParams %j', paymentParams);
+
+      //console.log('itemId ' +  queryParams.get("itemId"));
+
+      if (paymentParams.payment_id != undefined) {
+        console.log('Payment confirmed: ' + paymentParams.payment_id);
+        updateOrder(paymentParams);
+      }
+
       const [name, setName] = useState('');
       const [userEmail, setUserEmail] = useState('');
       const [phoneNumber, setPhoneNumber] = useState('');
-      const [itemId, setItemId] = useState('');
+      const [itemId, setItemId] = useState(queryParams.get("itemId"));
       const [uploaded_file, setUploaded_file] = useState([]);
       const [globalId, setGlobalId] = useState('');
+
+      //setItemId(queryParams.get("itemId"));
+
         return(
             <div className='loja'>
                 <div className='header'>
@@ -77,11 +97,7 @@ const Loja = ({props, match}) => {
                     
                 
                 {(globalId != '') &&
-                <form method="POST">
-                    <script
-                    src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js"
-                    data-preference-id={globalId}>
-                    </script>
+                <form method="POST" id='pagId'>
                 </form>
                 }
                 </div>
@@ -98,7 +114,27 @@ const Loja = ({props, match}) => {
                 </div>
             </div>
         );
-    
+}
+
+async function updateOrder(paymentParams) {
+
+        console.log('payment params to update %j', paymentParams);
+    try {
+        let rawResponse = await fetch(url + '/' + paymentParams.external_reference, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ externalOrder: paymentParams })});
+
+        if (rawResponse.status == 200) {
+            let result = await rawResponse.json();
+            //console.log('order updated %j', result);
+        }
+    } catch(err) {
+        console.log('error updating order ' + err)
+    }
 }
 
 export default Loja;
