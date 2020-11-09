@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import  home from './components/pages/home/Index'
+import  home from './components/pages/home/Index';
 import loja from './components/pages/loja';
 
 function Routes(){
