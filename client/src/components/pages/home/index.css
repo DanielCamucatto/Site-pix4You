@@ -1017,15 +1017,15 @@ h1,h2,h3,h4{
     text-align: center;
     background-color: var(--main-color-01);
     padding: 30px;
-    width: 250px;
+    width: auto;
     margin-block-start: initial;
     }
     .pack6 img{
     width: 310px;
+    transition: 2s
     }
     .pack6 img:hover{
-    transition: 2s;
-    transform: scale(1.1);
+    transform: scale(0.9);
     }
     .pack6 h3{
     font-weight: bold;
@@ -1073,7 +1073,7 @@ h1,h2,h3,h4{
     text-align: center;
     background-color: rgb(127, 205, 205);
     padding: 30px;
-    width: 250px;
+    width: auto;
     margin-block-start: initial;
     }
     .pack12 img{
@@ -1081,7 +1081,7 @@ h1,h2,h3,h4{
     }
     .pack12 img:hover{
     transition: 2s;
-    transform: scale(1.1);
+    transform: scale(0.9);
     }
     .pack12 h3{
     font-weight: bold;
@@ -1130,7 +1130,7 @@ h1,h2,h3,h4{
     text-align: center;
     background-color: var(--main-color-01);
     padding: 30px;
-    width: 250px;
+    width: auto;
     margin-block-start: initial;
     }
     .pack18 img{
@@ -1138,14 +1138,14 @@ h1,h2,h3,h4{
     }
     .pack18 img:hover{
     transition: 2s;
-    transform: scale(1.1);
+    transform: scale(0.9);
     }
     .pack18 h3{
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    color: var(--secundary-color);
-    font-size: 1.5rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--secundary-color);
+      font-size: 1.5rem;
     }
     .pack18 li{
     text-transform: uppercase;
@@ -1175,10 +1175,12 @@ h1,h2,h3,h4{
     transition: 0.5s;
     }
     .faq{
-    margin:100px 300px;
+      
+      margin:10em 10em 5em 15em;
     }
     .faq h2{
-      margin-bottom:1em ;
+      text-align: center;
+      margin-bottom:1em;
       color: var(--title-color);
       text-align: center;
       font-weight: bold;
@@ -1187,18 +1189,21 @@ h1,h2,h3,h4{
     .faq h4{
     color: var(--secundary-color);
     font-weight: bold;
+    line-height: 50px;
     }
     /* configurações footer */
     .footer{
-    background-color: var(--main-color-01);
-    width: 100%;
-    height: 700px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 2fr 1fr;
+      background-color: var(--main-color-01);
+      width: auto;
+    }
+    .container{
+      display: flex;
+      margin: auto 20em;
     }
     .box1{
-      margin: 5em auto; 
+      align-self: flex-start;
+      margin-top: 6.2em;
+      line-height: 2em;
     }
     .box1 p{
     color: var(--title-color);
@@ -1216,15 +1221,18 @@ h1,h2,h3,h4{
     text-decoration: underline;
     }
     .formContact{
-      margin:5em 5em 0 3em;  
+      margin:6em 5em 0 15em;
     }
     legend{
       text-transform: uppercase;
       font-weight: bold;
       font-size: 1.2rem;
+      
     }
     fieldset{
-      border:none;
+      border: none;
+      display: flex;
+      flex-direction: column;
     }
     .formContact fieldset label input{
       margin: 6px 0;
@@ -1260,7 +1268,6 @@ h1,h2,h3,h4{
       border: none;
     }
     .box2{
-      grid-column: 1/3;
       justify-self: center;
       align-self: center;
     }
@@ -1270,7 +1277,6 @@ h1,h2,h3,h4{
     }
     .icons{
       background-color: var(--main-color-01);
-      grid-column: 1/3;
       font-size: 1.5rem;
       text-align: center;
       padding: 10px;
@@ -1283,5 +1289,12 @@ h1,h2,h3,h4{
     }
     .icons a:hover{
     color: var(--secundary-color);
+    }
+    .r-consulters{
+      margin-top: 2em;
+      text-align: center;
+    }
+    .r-consulters span{
+      color: var(--secundary-color);
     }
 }
